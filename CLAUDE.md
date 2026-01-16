@@ -6,7 +6,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Leave Optimization Planner is a web application that helps corporate employees plan their leaves efficiently. It takes company leave policies and holiday calendars as input, computes optimized leave plans, and presents ranked, explainable results on a calendar UI.
 
-**Status**: Greenfield project - see [docs/prd.md](docs/prd.md) for full requirements.
+**Status**: Greenfield project - see [docs/prd.md](docs/prd.md) for full requirements and [docs/tech-stack.md](docs/tech-stack.md) for technology decisions.
+
+## Tech Stack
+
+**Architecture**: Solver-centric, service-oriented (Frontend → Backend API → Constraint Solver)
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | SvelteKit + TypeScript |
+| Backend | Python 3.11 + FastAPI + Pydantic v2 |
+| Solver | Google OR-Tools CP-SAT |
+| Database | SQLite |
+| API | REST/JSON with OpenAPI |
 
 ## Core Domain Concepts
 
@@ -15,14 +27,16 @@ Leave Optimization Planner is a web application that helps corporate employees p
 - **Planning Horizon**: Configurable period (default 12 months) for optimization
 - **Leave Plans**: Ranked outputs showing date ranges, leave type per day, totals by type, and optimization rationale
 
-## Optimization Engine Requirements
+## Optimization Engine (CP-SAT Solver)
 
-The engine must handle these constraints:
+**Modeling approach**: Binary variables per (day × leave type)
+
+Hard constraints:
 - Leave cannot be used before vesting
 - Leave balances cannot go negative
 - Holidays and weekends are non-working days
 
-Optimization objectives (weighted):
+Soft objectives (weighted):
 - Minimize high-priority-cost (paid) leave usage
 - Maximize contiguous non-working periods
 - Minimize leave expiry waste
@@ -49,3 +63,9 @@ Out of scope for MVP:
 - Employer administration
 - Calendar sync (Google/Outlook)
 - AI behavior-based recommendations
+
+## API Endpoints
+
+- `POST /optimize` - Run optimization with policies and preferences
+- `GET /holidays` - Retrieve holiday calendar
+- `GET /plans/{id}` - Fetch saved optimization plan
