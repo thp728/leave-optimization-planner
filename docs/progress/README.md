@@ -1,12 +1,14 @@
 # Leave Optimization Planner - Implementation Progress
 
-This folder tracks the implementation progress of the Leave Optimization Planner across six phases.
+This folder tracks the implementation progress of the Leave Optimization Planner across six phases, organized with **UI-first development** and mock data.
+
+---
 
 ## Current Status
 
-**Current Phase**: Phase 1 - Data Models & Foundation
+**Current Phase**: Phase 1 - Basic Frontend UI & Forms (with Mock Data)
 **Overall Progress**: 0% (0/6 phases complete)
-**Last Updated**: 2026-01-17
+**Last Updated**: 2026-02-01
 
 ---
 
@@ -14,52 +16,49 @@ This folder tracks the implementation progress of the Leave Optimization Planner
 
 | Phase | Name | Status | Started | Completed |
 |-------|------|--------|---------|-----------|
-| 1 | Data Models & Foundation | Not Started | - | - |
-| 2 | Optimization Solver Core | Not Started | - | - |
-| 3 | API Layer & Orchestration | Not Started | - | - |
-| 4 | Basic Frontend UI & Forms | Not Started | - | - |
-| 5 | Calendar Visualization & UX Polish | Not Started | - | - |
+| 1 | Basic Frontend UI & Forms (Mock Data) | Not Started | - | - |
+| 2 | Calendar Visualization & UX Polish | Not Started | - | - |
+| 3 | Data Models & Foundation | Not Started | - | - |
+| 4 | Optimization Solver Core | Not Started | - | - |
+| 5 | API Layer & Integration | Not Started | - | - |
 | 6 | Refinement & Edge Cases | Not Started | - | - |
 
 ---
 
 ## Quick Links
 
-- [Phase 1: Data Models & Foundation](phase-1-data-models.md)
-- [Phase 2: Optimization Solver Core](phase-2-solver-core.md)
-- [Phase 3: API Layer & Orchestration](phase-3-api-layer.md)
-- [Phase 4: Basic Frontend UI & Forms](phase-4-basic-ui.md)
-- [Phase 5: Calendar Visualization & UX Polish](phase-5-calendar-viz.md)
+- [Phase 1: Basic Frontend UI & Forms](phase-1-basic-ui.md)
+- [Phase 2: Calendar Visualization & UX Polish](phase-2-calendar-viz.md)
+- [Phase 3: Data Models & Foundation](phase-3-data-models.md)
+- [Phase 4: Optimization Solver Core](phase-4-solver-core.md)
+- [Phase 5: API Layer & Integration](phase-5-api-integration.md)
 - [Phase 6: Refinement & Edge Cases](phase-6-refinement.md)
 
 ---
 
-## Implementation Plan
+## UI-First Development Strategy
 
-For the complete implementation plan, see the main plan document:
-📋 **[Full Implementation Plan](../../.claude/plans/crispy-orbiting-token.md)** (if available)
+We've reorganized to build the UI first with mock data, then implement the backend. This approach provides:
 
-Alternatively, refer to:
-- [PRD](../prd.md) - Product requirements
-- [Tech Stack](../tech-stack.md) - Technology decisions
-- [CLAUDE.md](../../CLAUDE.md) - Project guidelines
+- **Immediate visual feedback** - See the product from day one
+- **API design validation** - Building UI reveals what data structures are actually needed
+- **User experience focus** - Prove the core workflow before investing in solver complexity
+- **Parallel development** - Frontend team can progress while backend is being built
 
----
-
-## Phase Dependencies
+### Phase Flow
 
 ```
-Phase 1: Data Models
+Phase 1: UI Foundation (Mock Data)
     ↓
-Phase 2: Solver Core
+Phase 2: Calendar & UX (Mock Data)
     ↓
-Phase 3: API Layer
+Phase 3: Data Models (informed by UI)
     ↓
-Phase 4: Basic UI
+Phase 4: Solver Core (outputs match mock data)
     ↓
-Phase 5: Calendar Visualization
+Phase 5: API & Integration (replace mocks)
     ↓
-Phase 6: Refinement & Edge Cases
+Phase 6: Refinement & Polish
 ```
 
 ---
@@ -98,26 +97,41 @@ Each phase follows this workflow:
 
 ### Test Coverage Targets
 
-- Phase 1 (Models): >80%
-- Phase 2 (Solver): >85%
-- Phase 3 (API): >75%
-- Phase 4-6 (Frontend): >70%
+- Phase 1-2 (Frontend): >70%
+- Phase 3 (Models): >80%
+- Phase 4 (Solver): >85%
+- Phase 5 (API): >75%
+- Phase 6 (Refinement): >70%
 
 ---
 
 ## Recent Updates
 
+### 2026-02-01
+- **Reorganized phases** to use UI-first development with mock data
+- Previous Phase 1 (Data Models) → New Phase 3
+- Previous Phase 2 (Solver) → New Phase 4
+- Previous Phase 3 (API) → New Phase 5 (Integration)
+- Previous Phase 4 (Basic UI) → New Phase 1 (with mock data)
+- Previous Phase 5 (Calendar) → New Phase 2
+- Ready to begin Phase 1 implementation
+
 ### 2026-01-17
 - Created progress tracking structure
 - Initialized phase documentation files
-- Ready to begin Phase 1 implementation
 
 ---
 
 ## Next Steps
 
 1. ✅ Set up progress tracking structure
-2. Begin Phase 1: Data Models & Foundation
-3. Implement Pydantic models for backend
-4. Set up pytest testing infrastructure
-5. Create database schema and utilities
+2. ✅ Reorganize phases for UI-first development
+3. **Begin Phase 1**: Basic Frontend UI & Forms with mock data
+4. Create SvelteKit project structure
+5. Implement mock data layer and TypeScript interfaces
+6. Build input forms (LeaveTypeForm, HolidayForm, PreferencesForm)
+7. Create PolicyBuilder orchestrator
+8. Build results display components
+9. Test full mock user flow
+10. Move to Phase 2: Calendar Visualization
+
