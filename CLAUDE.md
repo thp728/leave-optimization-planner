@@ -53,6 +53,24 @@ Leave Optimization Planner is a web application that helps corporate employees p
 
 **Status**: Greenfield project - see [docs/prd.md](docs/prd.md) for full requirements and [docs/tech-stack.md](docs/tech-stack.md) for technology decisions.
 
+## Design System
+
+All frontend UI work must follow the design system documented in [docs/design-system/](docs/design-system/):
+
+- **[docs/design-system/README.md](docs/design-system/README.md)** — Overview, principles, conventions, and how to add components
+- **[docs/design-system/tokens.md](docs/design-system/tokens.md)** — Color palette (primary blue + teal accent), typography (Inter), spacing (8px grid), shadows, radius, animations
+- **[docs/design-system/components.md](docs/design-system/components.md)** — Component API reference with props, variants, usage examples
+- **[docs/design-system/accessibility.md](docs/design-system/accessibility.md)** — WCAG AA requirements, ARIA patterns, keyboard navigation
+
+### Key Rules for Frontend Development
+
+1. **Use design tokens** — All colors, spacing, typography, and shadows come from the `@theme` block in `apps/web/src/routes/layout.css`. Use Tailwind utilities like `bg-primary-500`, `text-text-primary`, `rounded-lg` — never hardcoded hex values or arbitrary Tailwind values.
+2. **Reuse existing components** — Check `apps/web/src/lib/components/` before creating new UI elements. Import via `$lib/components`.
+3. **Svelte 5 patterns** — Use `$props()`, `$state()`, `$derived()`, `$bindable()`, and `Snippet` type. Do NOT use legacy Svelte 4 syntax (`export let`, `$:`, `<slot>`).
+4. **No scoped styles** — Use Tailwind utility classes in `class=""` attributes. Avoid `<style>` blocks except for complex CSS Grid layouts.
+5. **Accessibility is mandatory** — Every interactive component needs ARIA attributes, keyboard navigation, and visible focus indicators. See [accessibility.md](docs/design-system/accessibility.md).
+6. **Icons** — Use `lucide-svelte`. Import icons individually for tree-shaking.
+
 ## Tech Stack
 
 **Architecture**: Solver-centric, service-oriented (Frontend → Backend API → Constraint Solver)

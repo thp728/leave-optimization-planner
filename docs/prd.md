@@ -2,6 +2,8 @@
 
 ## Product: Leave Optimization Planner (Individual User)
 
+> Proposed Name: OffSeason
+
 ---
 
 ## 1. Overview

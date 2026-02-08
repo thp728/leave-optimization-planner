@@ -108,17 +108,28 @@ raise HTTPException(status_code=400, detail="Invalid leave policy")
 
 ### TypeScript/Svelte (Frontend)
 
+**Design System**: All frontend development must follow the design system documented in `docs/design-system/`. This includes:
+- **Design tokens** defined in `apps/web/src/routes/layout.css` via Tailwind v4 `@theme`
+- **Component API specs** in `docs/design-system/components.md`
+- **Accessibility requirements** in `docs/design-system/accessibility.md`
+- **Token reference** in `docs/design-system/tokens.md`
+
+Use existing design system components from `$lib/components/` before creating new ones.
+
 **Imports**: Group by SvelteKit, third-party, local; sort alphabetically
 ```typescript
-import { page } from '$app/stores';
-import { derived } from 'svelte/store';
+import { page } from '$app/state';
 
+import { Calendar } from 'lucide-svelte';
+
+import { Button, Card } from '$lib/components';
 import type { LeavePlan } from '$lib/types';
 ```
 
-**Formatting**: Prettier with 2-space indentation
+**Formatting**: Prettier with tab indentation
 - Single quotes for strings
-- No semicolons (per current config)
+- Print width: 100 characters
+- Tailwind class sorting via `prettier-plugin-tailwindcss`
 
 **Types**: Strict TypeScript; explicit return types on functions
 ```typescript
@@ -136,29 +147,40 @@ function calculateLeaveDays(plan: LeavePlan): number {
 - Functions/variables: `camelCase`
 - Components: `PascalCase.svelte`
 - Types/Interfaces: `PascalCase`
-- Stores: `camelCase` with `$` prefix when used
 
-**Component Structure**:
+**Component Structure** (Svelte 5 — uses runes, NOT legacy `export let` or `$:` syntax):
 ```svelte
 <script lang="ts">
-  // Props and imports first
-  export let plan: LeavePlan;
-  
-  // Reactive statements
-  $: totalDays = plan.dates.length;
+  import type { Snippet } from 'svelte';
+  import type { Size, Variant } from '$lib/types/components';
+
+  interface Props {
+    plan: LeavePlan;
+    variant?: Variant;
+    children: Snippet;
+  }
+
+  let { plan, variant = 'primary', children }: Props = $props();
+
+  // Reactive state
+  let isExpanded = $state(false);
+
+  // Derived values
+  let totalDays = $derived(plan.dates.length);
 </script>
 
-<!-- Template -->
-<div class="plan-card">
-  <h3>{plan.leaveType}</h3>
+<!-- Template — use Tailwind utilities, NOT scoped <style> blocks -->
+<div class="rounded-lg border border-border bg-surface-raised p-4 shadow-sm">
+  <h3 class="text-lg font-semibold text-text-primary">{plan.leaveType}</h3>
+  {@render children()}
 </div>
-
-<style>
-  .plan-card {
-    /* Component-specific styles */
-  }
-</style>
 ```
+
+**Styling rules:**
+- Use Tailwind utility classes referencing design system tokens (e.g., `bg-primary-500`, `text-text-primary`, `rounded-lg`)
+- Do NOT use scoped `<style>` blocks (exception: complex CSS Grid layouts)
+- Do NOT use arbitrary Tailwind values (e.g., `bg-[#2563EB]`) — use token-based utilities instead
+- Icons: Use `lucide-svelte` — import individually for tree-shaking
 
 ## Project Architecture
 
@@ -188,6 +210,9 @@ function calculateLeaveDays(plan: LeavePlan): number {
 - `CLAUDE.md` - Code generation philosophy (scaffolding not solutions)
 - `docs/prd.md` - Full requirements
 - `docs/tech-stack.md` - Technology decisions
+- `docs/design-system/` - **Design system specification** (tokens, components, accessibility)
+- `apps/web/src/routes/layout.css` - Design token definitions (`@theme` block)
+- `apps/web/src/lib/components/` - Reusable UI component library
 - `apps/api/pyproject.toml` - Backend dependencies
 - `apps/web/package.json` - Frontend dependencies
 
