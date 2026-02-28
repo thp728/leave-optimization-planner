@@ -63,9 +63,6 @@ npm run lint
 
 ### General Principles
 
-- **Scaffolding over solutions**: Provide boilerplate and guidance, NOT complete implementations
-- Leave `// TODO:` or `# TODO:` comments with implementation hints
-- Explain architectural decisions in comments
 - Prefer explicit over implicit
 
 ### Python (Backend & Solver)
@@ -207,7 +204,7 @@ function calculateLeaveDays(plan: LeavePlan): number {
 
 ## Key Files
 
-- `CLAUDE.md` - Code generation philosophy (scaffolding not solutions)
+- `CLAUDE.md` - Project guidance for Claude Code
 - `docs/prd.md` - Full requirements
 - `docs/tech-stack.md` - Technology decisions
 - `docs/design-system/` - **Design system specification** (tokens, components, accessibility)

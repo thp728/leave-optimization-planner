@@ -2,51 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Code Generation Philosophy
-
-**CRITICAL**: This repository is for learning through hands-on implementation. Claude should provide scaffolding and guidance, NOT complete solutions.
-
-### DO:
-- Generate file structures, boilerplate, and scaffolding
-- Add detailed comments explaining what each section does
-- Leave `// TODO:` or `# TODO:` comments with implementation hints
-- Suggest relevant documentation links in comments
-- Explain architectural decisions and patterns in comments
-- Create function signatures with parameter types and return types
-- Set up imports, dependencies, and configuration files
-
-### DO NOT:
-- Write complete function implementations
-- Fill in business logic
-- Complete algorithm implementations
-- Solve the core problems
-
-### Code Template Example:
-
-```python
-def calculate_optimized_leave(policies: LeavePolicy, horizon: DateRange) -> LeavePlan:
-    """
-    Calculate optimized leave plan using CP-SAT solver.
-
-    Args:
-        policies: Leave policy configuration with types, accruals, and expiry rules
-        horizon: Planning period (start_date, end_date)
-
-    Returns:
-        Optimized leave plan with ranked alternatives
-
-    TODO: Implementation hints
-    - Initialize CP-SAT model and decision variables (binary var per day×leave_type)
-    - Add hard constraints: vesting dates, balance limits, non-working days
-    - Define objective function: minimize paid leave, maximize contiguous blocks
-    - Solve with deterministic parameters (set random_seed=0)
-    - See OR-Tools docs: https://developers.google.com/optimization/cp/cp_solver
-    """
-    pass  # Your implementation here
-```
-
-When explaining concepts, assume programming fundamentals are understood but stack-specific patterns (FastAPI, SvelteKit, OR-Tools) need explanation.
-
 ## Project Overview
 
 Leave Optimization Planner is a web application that helps corporate employees plan their leaves efficiently. It takes company leave policies and holiday calendars as input, computes optimized leave plans, and presents ranked, explainable results on a calendar UI.
