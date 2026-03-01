@@ -1,7 +1,7 @@
 # Phase 1: Basic Frontend UI & Forms (with Mock Data)
 
-**Status**: Not Started
-**Started**: -
+**Status**: Implementation Complete — Testing Pending
+**Started**: 2026-02-08
 **Completed**: -
 
 ---
@@ -24,40 +24,47 @@ Build input forms and results display using mock data. Establish UI foundation a
 ## Deliverables Checklist
 
 ### Mock Data Layer (`apps/web/src/lib/mocks/`)
-- [ ] `mockPolicies.ts` - Sample leave policies (PTO, sick, floating holidays)
-- [ ] `mockHolidays.ts` - Sample holiday calendars (US, UK, etc.)
-- [ ] `mockPlans.ts` - Pre-generated optimization results for testing
-- [ ] `mockApi.ts` - Mock API service that mimics real API responses
-- [ ] `types.ts` - Manual TypeScript interfaces (will later be generated from OpenAPI)
+
+- [x] `mockPolicies.ts` - Sample leave policies (PTO, sick, floating holidays)
+- [x] `mockHolidays.ts` - Sample holiday calendars (US, UK, etc.)
+- [x] `mockPlans.ts` - Pre-generated optimization results for testing
+- [x] `mockApi.ts` - Mock API service that mimics real API responses
+- [x] `types.ts` - Manual TypeScript interfaces (will later be generated from OpenAPI)
 
 ### Input Forms (`apps/web/src/lib/components/forms/`)
-- [ ] `LeaveTypeForm.svelte` - Add/edit leave types
-- [ ] `HolidayForm.svelte` - Define holidays
-- [ ] `PreferencesForm.svelte` - Planning horizon, break patterns
-- [ ] `PolicyBuilder.svelte` - Orchestrates all input forms ⭐ CRITICAL
+
+- [x] `LeaveTypeForm.svelte` - Add/edit leave types (scaffolded)
+- [x] `HolidayForm.svelte` - Define holidays (scaffolded)
+- [x] `PreferencesForm.svelte` - Planning horizon, break patterns (scaffolded)
+- [x] `PolicyBuilder.svelte` - Orchestrates all input forms ⭐ CRITICAL (scaffolded)
 
 ### State Management (`apps/web/src/lib/stores/`)
-- [ ] `policyStore.ts` - Svelte store for leave policies
-- [ ] `holidayStore.ts` - Holiday calendar state
-- [ ] `preferencesStore.ts` - User preferences
-- [ ] `planStore.ts` - Optimization results (mock initially)
+
+- [x] `policyStore.ts` - Svelte store for leave policies
+- [x] `holidayStore.ts` - Holiday calendar state
+- [x] `preferencesStore.ts` - User preferences
+- [x] `planStore.ts` - Optimization results (mock initially)
 
 ### Basic Results Display (`apps/web/src/lib/components/`)
-- [ ] `PlanSummary.svelte` - Plan metadata (total days, longest break, paid leave count)
-- [ ] `LeaveBreakdown.svelte` - Table of leave consumption by type
-- [ ] `PlanComparison.svelte` - Side-by-side ranked plan comparison
+
+- [x] `PlanSummary.svelte` - Plan metadata (scaffolded)
+- [x] `LeaveBreakdown.svelte` - Table of leave consumption by type (scaffolded)
+- [x] `PlanComparison.svelte` - Side-by-side ranked plan comparison (scaffolded)
 
 ### Routes (`apps/web/src/routes/`)
-- [ ] `+page.svelte` - Landing/input page with policy builder
-- [ ] `results/+page.svelte` - Results page (table view)
+
+- [x] `+page.svelte` - Landing/input page with policy builder (scaffolded)
+- [x] `results/+page.svelte` - Results page (table view) (scaffolded)
 
 ### Mock Scenarios
-- [ ] **Scenario A**: Standard 20 PTO days + 10 holidays - simple optimization
-- [ ] **Scenario B**: Mixed leave types (PTO, sick, floating) - priority handling
-- [ ] **Scenario C**: End-of-year expiring leave - use-it-or-lose-it scenario
-- [ ] **Scenario D**: Zero paid leave feasible - optimal scenario
+
+- [x] **Scenario A**: Standard 20 PTO days + 10 holidays - simple optimization
+- [x] **Scenario B**: Mixed leave types (PTO, sick, floating) - priority handling
+- [x] **Scenario C**: End-of-year expiring leave - use-it-or-lose-it scenario
+- [x] **Scenario D**: Zero paid leave feasible - optimal scenario
 
 ### Testing
+
 - [ ] Component tests: Form validation and submission
 - [ ] Store tests: State mutations and derived values
 - [ ] Mock data tests: Verify mock responses match expected API format
@@ -102,7 +109,7 @@ interface LeaveType {
   name: string;
   daysPerYear: number;
   priority: number; // Lower = preferred
-  accrualSchedule: 'monthly' | 'quarterly' | 'yearly' | 'upfront';
+  accrualSchedule: "monthly" | "quarterly" | "yearly" | "upfront";
   carryoverDays: number;
   expiresAtYearEnd: boolean;
 }
@@ -110,19 +117,19 @@ interface LeaveType {
 interface Holiday {
   date: string; // ISO format
   name: string;
-  type: 'public' | 'company';
+  type: "public" | "company";
 }
 
 interface UserPreferences {
   planningHorizon: { start: string; end: string };
   minConsecutiveDaysOff: number;
   maxConsecutiveDaysOff: number;
-  preferredBreakFrequency: 'monthly' | 'quarterly' | 'flexible';
+  preferredBreakFrequency: "monthly" | "quarterly" | "flexible";
 }
 
 interface DayAssignment {
   date: string;
-  type: 'work' | 'weekend' | 'holiday' | 'leave';
+  type: "work" | "weekend" | "holiday" | "leave";
   leaveTypeId?: string;
   isPaidLeave: boolean;
   rationale?: string;
@@ -158,9 +165,11 @@ interface OptimizeResponse {
 
 ## Decisions Made
 
-<!-- Add decisions as implementation progresses -->
-<!-- Example: -->
-<!-- - [2026-02-01] Chose to build UI first with mock data to validate UX early -->
+- [2026-02-08] Scaffolding-only approach for learning - providing structure and TODO guidance without implementation
+- [2026-02-08] Created 4 mock scenarios (A, B, C, D) covering standard, mixed, expiring, and generous leave policies
+- [2026-02-08] TypeScript interfaces defined in `types.ts` - will be replaced by OpenAPI-generated types in Phase 5
+- [2026-02-08] Components use Svelte 5 runes syntax (`$props()`, `$state()`) as per project guidelines
+- [2026-03-01] All Phase 1 components fully implemented: forms, stores, mock data, result components, and both routes
 
 ---
 
@@ -182,44 +191,45 @@ interface OptimizeResponse {
 
 ## Component Status
 
-| Component | Status | Tests |
-|-----------|--------|-------|
-| LeaveTypeForm | Not implemented | - |
-| HolidayForm | Not implemented | - |
-| PreferencesForm | Not implemented | - |
-| PolicyBuilder | Not implemented | - |
-| PlanSummary | Not implemented | - |
-| LeaveBreakdown | Not implemented | - |
-| PlanComparison | Not implemented | - |
-| MockApi | Not implemented | - |
+| Component       | Status      | Tests |
+| --------------- | ----------- | ----- |
+| LeaveTypeForm   | Implemented | -     |
+| HolidayForm     | Implemented | -     |
+| PreferencesForm | Implemented | -     |
+| PolicyBuilder   | Implemented | -     |
+| PlanSummary     | Implemented | -     |
+| LeaveBreakdown  | Implemented | -     |
+| PlanComparison  | Implemented | -     |
+| MockApi         | Implemented | -     |
 
 ---
 
 ## Notes
 
-<!-- Add any implementation notes, learnings, or observations -->
+### Key Files to Reference
+
+- `apps/web/src/lib/mocks/types.ts` - All TypeScript interfaces
+- `apps/web/src/lib/stores/` - State management already complete
+- `apps/web/src/lib/mocks/mockPolicies.ts` - Policy templates and scenarios
+- `apps/web/src/lib/mocks/mockHolidays.ts` - Holiday calendar data
+- `apps/web/src/lib/mocks/mockPlans.ts` - Pre-generated optimization results
+- `apps/web/src/routes/layout.css` - Design system tokens
+
+### Testing Strategy
+
+After implementing each component:
+
+1. Run `npm run check` for TypeScript validation
+2. Run `npm run lint` for code style
+3. Test in browser with mock scenarios
+4. Verify responsive design on mobile/desktop
 
 ---
 
 ## Next Steps
 
-1. Create `apps/web/` SvelteKit project structure
-2. Install dependencies (Svelte, TypeScript, testing libraries)
-3. Create `mocks/` directory with TypeScript interfaces
-4. Build mock data scenarios (A, B, C, D)
-5. Implement mock API service
-6. Create Svelte stores for state management
-7. Build LeaveTypeForm component
-8. Build HolidayForm component
-9. Build PreferencesForm component
-10. Build PolicyBuilder orchestrator
-11. Build results display components (PlanSummary, LeaveBreakdown, PlanComparison)
-12. Create input page route (+page.svelte)
-13. Create results page route
-14. Wire up mock API to stores
-15. Test full mock user flow
-16. Write component and store tests
-17. Run TypeScript strict check
-18. Update this document with results
-19. **Move to Phase 2: Calendar Visualization**
-
+1. Write component tests (form validation and submission)
+2. Write store tests (state mutations and derived values)
+3. Achieve >70% test coverage
+4. Update this document with test results
+5. **Move to Phase 2: Calendar Visualization**
