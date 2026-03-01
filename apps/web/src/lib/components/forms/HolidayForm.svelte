@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Trash2, AlertCircle, Globe, Building2 } from 'lucide-svelte';
 	import type { Holiday, HolidayType } from '$lib/mocks/types';
+	import { isValidDate } from '$lib/utils/dateUtils';
 
 	interface Props {
 		holiday: Holiday;
@@ -22,12 +23,6 @@
 		name = holiday.name;
 		type = holiday.type;
 	});
-
-	function isValidDate(value: string): boolean {
-		if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-		const d = new Date(value + 'T00:00:00');
-		return !isNaN(d.getTime()) && d.toISOString().startsWith(value);
-	}
 
 	function formatDate(value: string): string {
 		if (!isValidDate(value)) return '';
